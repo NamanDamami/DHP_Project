@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entertainment Trends Dashboard</title>
+  <link rel="stylesheet" href="static/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <h1><span class="star-icon">✦</span> Entertainment</h1>
+        <h1>Trends <span class="sparkle"></span></h1>
+        <p>Explore analytics and insights across anime, movies, and games</p>
+      </div>
+      <div class="center-select">
+        <select onchange="showSection(this.value)">
+          <option value="">Select Trend</option>
+          <option value="anime">🎌 Anime</option>
+          <option value="movies">🎬 Movies</option>
+          <option value="games">🎮 Games</option>
+          <option value="combined">🔗 Combined</option>
+        </select>
+      </div>
+      <div class="theme-toggle">
+        <i class="fas fa-sun"></i> <!-- or fa-moon -->
+      </div>      
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Category overview cards -->
+    <section class="category-cards">
+      <div class="category-card anime">
+        <div class="card-icon">🎌</div>
+        <h3>Anime</h3>
+        <p>Explore ratings and genre trends</p>
+      </div>
+      <div class="category-card movies">
+        <div class="card-icon">🎬</div>
+        <h3>Movies</h3>
+        <p>Discover top-rated film categories</p>
+      </div>
+      <div class="category-card games">
+        <div class="card-icon">🎮</div>
+        <h3>Games</h3>
+        <p>Analyze platform and publisher data</p>
+      </div>
+      <div class="category-card combined">
+        <div class="card-icon">🔗</div>
+        <h3>Combined</h3>
+        <p>Compare trends across media types</p>
+      </div>
+    </section>
+
+    <!-- Chart Sections -->
+    <div class="chart-sections">
+      <!-- Anime Section -->
+      <section id="anime-section" class="chart-section active">
+        <div class="section-header">
+          <h2>🎌 Anime Analytics</h2>
+          <span class="trending-tag">Trending</span>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Anime Genre-Rating Trend</h3>
+            <button class="toggle-chart-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="chart-body">
+            <canvas id="animeRatingsChart"></canvas>
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Anime Genre - Type(Movies, TV, OVA) Trend</h3>
+            <button class="toggle-chart-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="chart-body collapsed">
+            <canvas id="animeGenre"></canvas>
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Episodes Distribution</h3>
+            <button class="toggle-chart-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="chart-body collapsed">
+            <canvas id="episodeTypeChart"></canvas>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Movies Section -->
+      <section id="movies-section" class="chart-section">
+        <div class="section-header">
+          <h2>🎬 Movie Analytics</h2>
+          <span class="trending-tag">Trending</span>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Genre Popularity Over Time Trend</h3>
+            <button class="toggle-chart-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="chart-body">
+            <canvas id="multiGenreTrendChart" width="800" height="400"></canvas>
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Average IMDb Rating per Genre</h3>
+            <button class="toggle-chart-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="chart-body collapsed">
+              <canvas id="movieratingyear"></canvas>          
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Movies by Year</h3>
+            <button class="toggle-chart-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="chart-body collapsed">
+            <canvas id="movieByYear"></canvas>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Games Section -->
+      <section id="games-section" class="chart-section">
+        <div class="section-header">
+          <h2>🎮 Games Analytics</h2>
+          <span class="trending-tag">Trending</span>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Game Platform Sales Trend</h3>
+            <button class="toggle-chart-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="chart-body">
+            <canvas id="gamePlatformsales"></canvas>
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Game Genre Trend</h3>
+            <button class="toggle-chart-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="chart-body collapsed">
+            <canvas id="gamecharttrend"></canvas>
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Top Publishers</h3>
+            <button class="toggle-chart-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="chart-body collapsed">
+            <canvas id="gamePublishers"></canvas>
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Games by Year</h3>
+            <button class="toggle-chart-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="chart-body collapsed">
+            <canvas id="gameByYear"></canvas>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Combined Section -->
+      <section id="combined-section" class="chart-section">
+        <div class="section-header">
+          <h2>🔗 Cross-Media Analytics</h2>
+          <span class="trending-tag">Trending</span>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Average Ratings Comparison</h3>
+            <button class="toggle-chart-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="chart-body">
+            <canvas id="combinedAvgRating"></canvas>
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Titles by Year (Movies + Games)</h3>
+            <button class="toggle-chart-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="chart-body collapsed">
+            <canvas id="combinedTitlesYear"></canvas>
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Genre Distribution (All)</h3>
+            <button class="toggle-chart-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="chart-body collapsed">
+            <canvas id="combinedGenreDistribution"></canvas>
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3>Average Ratings by Genre (Anime vs Movie)</h3>
+            <button class="toggle-chart-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="chart-body collapsed">
+            <canvas id="avgGenreRating"></canvas>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <button id="scroll-to-top" class="scroll-top-btn">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <div class="fab-menu">
+    <button id="fab-button" class="fab-button">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="fab-menu-items">
+      <button data-category="anime" class="fab-item">
+        <span>Anime</span>
+        <span>🎌</span>
+      </button>
+      <button data-category="movies" class="fab-item">
+        <span>Movies</span>
+        <span>🎬</span>
+      </button>
+      <button data-category="games" class="fab-item">
+        <span>Games</span>
+        <span>🎮</span>
+      </button>
+      <button data-category="combined" class="fab-item">
+        <span>Combined</span>
+        <span>🔗</span>
+      </button>
+      <button id="top-fab" class="fab-item">
+        <span>Top</span>
+        <span>⬆️</span>
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3>Entertainment Trends Dashboard</h3>
+          <p>Visualizing entertainment data across media types</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; <span id="current-year"></span> Entertainment Dashboard. All data is for demonstration purposes.
+      </div>
+    </div>
+  </footer>
+
+  <script src="static/script.js"></script>
+</body>
+</html>
